@@ -2,7 +2,12 @@
 ##############################################################################
 # Compiler settings
 #
-CC = avr-gcc
+ifeq (,$(wildcard /usr/local/Cellar/avr-gcc\@8/*/bin/avr-gcc))
+    CC = /usr/local/Cellar/avr-gcc\@8/*/bin/avr-gcc
+else
+    CC = avr-gcc
+endif
+
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 SIZE = avr-size

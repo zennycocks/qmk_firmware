@@ -2,12 +2,22 @@
 ##############################################################################
 # Compiler settings
 #
-CC = arm-none-eabi-gcc
-OBJCOPY = arm-none-eabi-objcopy
-OBJDUMP = arm-none-eabi-objdump
-SIZE = arm-none-eabi-size
-AR = arm-none-eabi-ar
-NM = arm-none-eabi-nm
+ifeq (,$(wildcard /usr/local/Cellar/arm-gcc-bin\@8/*/bin/arm-none-eabi-gcc))
+    CC = /usr/local/Cellar/arm-gcc-bin\@8/*/bin/arm-none-eabi-gcc
+    OBJCOPY = /usr/local/Cellar/arm-gcc-bin\@8/*/bin/arm-none-eabi-objcopy
+    OBJDUMP = /usr/local/Cellar/arm-gcc-bin\@8/*/bin/arm-none-eabi-objdump
+    SIZE = /usr/local/Cellar/arm-gcc-bin\@8/*/bin/arm-none-eabi-size
+    AR = /usr/local/Cellar/arm-gcc-bin\@8/*/bin/arm-none-eabi-ar
+    NM = /usr/local/Cellar/arm-gcc-bin\@8/*/bin/arm-none-eabi-nm
+else
+    CC = arm-none-eabi-gcc
+    OBJCOPY = arm-none-eabi-objcopy
+    OBJDUMP = arm-none-eabi-objdump
+    SIZE = arm-none-eabi-size
+    AR = arm-none-eabi-ar
+    NM = arm-none-eabi-nm
+endif
+
 HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =

@@ -112,29 +112,6 @@ Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
-## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
-This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
-
-The solution is to remove and reinstall all affected modules.
-
-```
-brew rm avr-gcc
-brew rm avr-gcc@8
-brew rm dfu-programmer
-brew rm dfu-util
-brew rm gcc-arm-none-eabi
-brew rm arm-gcc-bin@8
-brew rm avrdude
-brew install avr-gcc@8
-brew install dfu-programmer
-brew install dfu-util
-brew install arm-gcc-bin@8
-brew install avrdude
-brew link --force avr-gcc@8
-brew link --force arm-gcc-bin@8
-
-```
-
 ### `avr-gcc` and LUFA
 
 If you updated your `avr-gcc` and you see errors involving LUFA, for example:
@@ -146,7 +123,6 @@ For now, you need to rollback `avr-gcc` to 8 in Homebrew.
 ```
 brew uninstall --force avr-gcc
 brew install avr-gcc@8
-brew link --force avr-gcc@8
 ```
 
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
